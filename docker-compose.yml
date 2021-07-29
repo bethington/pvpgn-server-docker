@@ -1,0 +1,54 @@
+
+# Networks ############################################################################################################
+
+networks:
+  pvpgn:
+    name: pvpgn
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.0.6.0/24
+  
+  # Services ############################################################################################################
+  
+services:
+
+  # Relay -------------------------------------------------------------------------------------------------------------
+
+  pvpgn:
+    image: bethington/pvpgn-server:latest
+    container_name: pvpgn
+    restart: unless-stopped
+    hostname: pvpgn
+    networks:
+      pvpgn:
+    ports:
+      - "6112:6112"
+      - "4000:4000"
+    volumes:
+      # - ./my-var:/usr/local/var/pvpgn
+      - ./etc:/usr/local/etc/pvpgn
+
+  # NGINX -------------------------------------------------------------------------------------------------------------
+
+  # nginx:
+  #   image: nginx
+  #   container_name: nginx
+  #   restart: unless-stopped
+  #   hostname: nginx
+  #   networks:
+  #     cardano:
+  #   ports:
+  #     - "12798:80"
+  #   volumes:
+  #     - nginx-config:/etc/nginx:ro
+
+# Volumes #############################################################################################################
+
+# volumes:
+#   mainnet-bprod-keys:
+#     external: true
+#   mainnet-bprod-data:
+#     external: true
+#   nginx-config:
+#     external: true

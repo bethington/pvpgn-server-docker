@@ -1,0 +1,9 @@
+bin/**
+.vscode/**
+.project
+.DS_Store
+data.*
+result*
+mainnet-bprod-keys
+data
+target
